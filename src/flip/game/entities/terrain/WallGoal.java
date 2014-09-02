@@ -54,13 +54,13 @@ public class WallGoal extends AbstractWall
 		
 		if(y < Display.getHeight() / 2)
 		{
-			if(p1.getXPlusTrans() - ((p1.getBoundingBox().width / 2) - 1) > x - (bounds.width / 2) - 0.01)
+			if(p1.getXPlusTrans() - ((p1.getBoundingBox().width / 2) - 1) >= x - (bounds.width / 2) - 0.01)
 			{
-				if(p1.getXPlusTrans() + ((p1.getBoundingBox().width / 2) - 1) < x + (bounds.width / 2) + 0.01)
+				if(p1.getXPlusTrans() + ((p1.getBoundingBox().width / 2) - 1) <= x + (bounds.width / 2) + 0.01)
 				{
-					if(p1.getYPlusTrans() - ((p1.getBoundingBox().height / 2) - 1) > y - (bounds.height / 2) - 0.01)
+					if(p1.getYPlusTrans() - ((p1.getBoundingBox().height / 2) - 1) >= y - (bounds.height / 2) - 0.01)
 					{
-						if(p1.getYPlusTrans() + ((p1.getBoundingBox().height / 2) - 1) < y + (bounds.height / 2) + 0.01)
+						if(p1.getYPlusTrans() + ((p1.getBoundingBox().height / 2) - 1) <= y + (bounds.height / 2) + 0.01)
 						{
 							playerOn = true;
 						}

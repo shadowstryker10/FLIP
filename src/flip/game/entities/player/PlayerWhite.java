@@ -24,7 +24,7 @@ public class PlayerWhite extends AbstractPlayer
 {
 	public PlayerWhite()
 	{
-		bounds = new Rectangle(32, 32);
+		bounds = new Rectangle(28, 28);
 		x = Display.getWidth() / 2;
 		y = (Display.getHeight() / 2) + (bounds.height / 2);
 	}
@@ -74,21 +74,22 @@ public class PlayerWhite extends AbstractPlayer
 		xTrans += trans;
 	}
 	
-	private boolean intersectsWall(double transx, double transy)
+	public boolean intersectsWall(double transx, double transy)
 	{
-		double leftEdge = x + xTrans + transx - (bounds.width / 2) + 1.01;
-		double rightEdge = x + xTrans + transx + (bounds.width / 2) -  1.01;
-		double topEdge = y + yTrans + transy - (bounds.height / 2) +  1.01;
-		double bottomEdge = y + yTrans + transy + (bounds.height / 2) -  1.01;
-		
 		ArrayList<AbstractWall> list = Obstacles.getBlackWorldWalls();
 		for(int i = 0; i < list.size(); i++)
 		{
+			double rad = 13.9;
+			double angle;
 			AbstractWall wall = list.get(i);
-			if(wall.intersects(leftEdge, topEdge)) return true;
-			if(wall.intersects(rightEdge, topEdge)) return true;
-			if(wall.intersects(leftEdge, bottomEdge)) return true;
-			if(wall.intersects(rightEdge, bottomEdge)) return true;
+			
+			for(angle = 0; angle < 6.3; angle += 0.1)
+			{
+				double xx = (rad * Math.cos(angle)) + getXPlusTrans() + transx;
+				double yy = (rad * Math.sin(angle)) + getYPlusTrans() + transy;
+				
+				if(wall.intersects(xx, yy)) return true;
+			}
 		}
 		
 		return false;

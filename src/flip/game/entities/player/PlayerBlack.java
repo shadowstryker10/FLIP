@@ -15,19 +15,17 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 
 import flip.files.Textures;
 import flip.game.entities.terrain.AbstractWall;
 import flip.game.entities.terrain.Obstacles;
-import flip.game.entities.terrain.WallGoal;
 
 public class PlayerBlack extends AbstractPlayer
 {
-	private boolean onWinTile = false;
-	
 	public PlayerBlack()
 	{
-		bounds = new Rectangle(32, 32);
+		bounds = new Rectangle(28, 28);
 		x = Display.getWidth() / 2;
 		y = (Display.getHeight() / 2) - (bounds.height / 2);
 	}
@@ -80,19 +78,20 @@ public class PlayerBlack extends AbstractPlayer
 	
 	public boolean intersectsWall(double transx, double transy)
 	{
-		double leftEdge = x + xTrans + transx - (bounds.width / 2) + 1.01;
-		double rightEdge = x + xTrans + transx + (bounds.width / 2) - 1.01;
-		double topEdge = y + yTrans + transy - (bounds.height / 2) + 1.01;
-		double bottomEdge = y + yTrans + transy + (bounds.height / 2) - 1.01;
-		
 		ArrayList<AbstractWall> list = Obstacles.getWhiteWorldWalls();
 		for(int i = 0; i < list.size(); i++)
 		{
+			double rad = 13.9;
+			double angle;
 			AbstractWall wall = list.get(i);
-			if(wall.intersects(leftEdge, topEdge)) return true;
-			if(wall.intersects(rightEdge, topEdge)) return true;
-			if(wall.intersects(leftEdge, bottomEdge)) return true;
-			if(wall.intersects(rightEdge, bottomEdge)) return true;
+			
+			for(angle = 0; angle < 6.3; angle += 0.1)
+			{
+				double xx = (rad * Math.cos(angle)) + getXPlusTrans() + transx;
+				double yy = (rad * Math.sin(angle)) + getYPlusTrans() + transy;
+				
+				if(wall.intersects(xx, yy)) return true;
+			}
 		}
 		
 		return false;
